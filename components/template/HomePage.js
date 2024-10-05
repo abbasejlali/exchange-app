@@ -1,3 +1,4 @@
+import { CallApi } from "@/libs/helper/helper";
 import React, { useState, useEffect } from "react";
 
 function HomePage() {
@@ -7,22 +8,22 @@ function HomePage() {
   const [ratetype, setRatetype] = useState("USD");
 
   useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_API_URL;
     const apiKey = process.env.NEXT_PUBLIC_API_KEY;
 
     // Get dollar or rial rate
-    fetch(`${url}/${apiKey}/latest/${ratetype}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data?.base_code === "USD") {
-          const irrRate = data.conversion_rates.IRR;
-          setRate(irrRate);
-        } else if (data?.base_code === "IRR") {
-          const irrRate = data.conversion_rates.USD;
-          setRate(irrRate);
-        }
-      })
-      .catch((error) => console.error("Error fetching exchange rate:", error));
+    const fetchData = async () => {
+      const response = await CallApi().get(`/${apiKey}/latest/${ratetype}`);
+      const { base_code, conversion_rates } = response?.data;
+
+      if (base_code === "USD") {
+        const irrRate = conversion_rates.IRR;
+        setRate(irrRate);
+      } else {
+        const usdRate = conversion_rates.USD;
+        setRate(usdRate);
+      }
+    };
+    fetchData();
   }, [ratetype]);
 
   const handleConversion = () => {
