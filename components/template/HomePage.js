@@ -1,5 +1,3 @@
-"use client";
-
 import { CallApi } from "@/libs/helper/helper";
 import React, { useState, useEffect } from "react";
 
@@ -89,6 +87,9 @@ function HomePage() {
       <h2 style={{ fontWeight: "bold", margin: "1rem 0" }}>
         Result : {convertedAmount} {ratetype === "USD" ? "IRR" : "USD"}
       </h2>
+      <span style={{ margin: "2rem 0", color: "red" }}>
+        **Prices are not updated**
+      </span>
     </div>
   );
 }
