@@ -1,3 +1,5 @@
+"use client";
+
 import { CallApi } from "@/libs/helper/helper";
 import React, { useState, useEffect } from "react";
 
@@ -38,24 +40,53 @@ function HomePage() {
   };
 
   return (
-    <div style={{ textAlign: "center", marginTop: "50px" }}>
-      <h1>Exchange App</h1>
+    <div
+      style={{
+        textAlign: "center",
+        marginTop: "50px",
+        height: "200px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+      }}
+    >
+      <h2
+        className="text-black font-bolder"
+        style={{ fontWeight: "bold", fontSize: "2rem" }}
+      >
+        Exchange App
+      </h2>
 
-      <label htmlFor="RateType">Rate Type: </label>
-      <select id="RateType" value={ratetype} onChange={handleChange}>
+      <label style={{ textAlign: "right" }} htmlFor="RateType">
+        Rate Type:{" "}
+      </label>
+      <select
+        id="RateType"
+        value={ratetype}
+        style={{ width: "50%", border: "1px solid #333" }}
+        onChange={handleChange}
+      >
         <option value="USD">Dollar to IRR Converter</option>
         <option value="IRR">IRR to Dollar Converter</option>
       </select>
+
       <input
         type="number"
         value={amount}
         onChange={(e) => setAmount(e.target.value)}
         placeholder="Enter USD amount"
+        style={{ margin: "1rem 0", border: "1px solid #333" }}
       />
 
-      <button onClick={handleConversion}>Converted</button>
+      <button
+        style={{ border: "1px solid green", padding: "0.5rem" }}
+        onClick={handleConversion}
+      >
+        Converted
+      </button>
 
-      <h2>
+      <h2 style={{ fontWeight: "bold", margin: "1rem 0" }}>
         Result : {convertedAmount} {ratetype === "USD" ? "IRR" : "USD"}
       </h2>
     </div>
